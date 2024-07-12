@@ -4,6 +4,9 @@ import requests
 
 def create_github_commit_comment(repo, commit_sha, token):
     url = f"https://api.github.com/repos/{repo}/commits/{commit_sha}/comments"
+    print("============")
+    print(url)
+    print("============")
     headers = {
         "Authorization": f"token {token}",
         "Accept": "application/vnd.github.v3+json"
