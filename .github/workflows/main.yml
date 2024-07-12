@@ -43,7 +43,7 @@ jobs:
         id: get_last_line
         run: |
           # Get the last line from the test output file
-          last_line=$(tail -n 1 test_output.txt)
+          last_line=$(tail -n 1 ../test_output.txt)
           echo "::set-output name=last_line::$last_line"
 
       - name: Python Configuration
