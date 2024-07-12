@@ -56,6 +56,4 @@ jobs:
         run: |
             # Get the last line from the previous step output
             last_line="${{ steps.get_last_line.outputs.last_line }}"
-            echo "Last line: $last_line"
-            # Use the last line in your Python script
             python temp.py "$last_line"
