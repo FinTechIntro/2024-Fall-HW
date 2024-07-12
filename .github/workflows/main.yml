@@ -56,4 +56,5 @@ jobs:
         run: |
             # Get the last line from the previous step output
             last_line="${{ steps.get_last_line.outputs.last_line }}"
-            python temp.py "$last_line"
+            commit_sha="${{ github.sha }}"
+            python temp.py "$last_line" ${{ github.repository }} $commit_sha ${{ secrets.TOKEN }}
