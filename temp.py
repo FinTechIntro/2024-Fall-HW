@@ -45,6 +45,7 @@ def main():
     commit_sha = sys.argv[2]
     token = sys.argv[3]
     print('=========')
+    print(commit_sha)
     url = f"https://api.github.com/repos/FinTechIntro/2024-Fall-HW/commits/{commit_sha}/comments"
     print(url)
     print('=========')
