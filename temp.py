@@ -2,17 +2,17 @@ import sys
 import re
 import requests
 
-def create_github_commit_comment(repo, commit_sha, token):
-    url = f"https://api.github.com/repos/{repo}/commits/{commit_sha}/comments"
-    print("============")
-    print(url)
-    print("============")
+def create_github_comment(repo, token, comment):
+    url = f"https://api.github.com/repos/{repo}/issues"
+    # /repos/{owner}/{repo}/issues
     headers = {
         "Authorization": f"token {token}",
         "Accept": "application/vnd.github.v3+json"
     }
+
     data = {
-        "body": "Hi"
+        "body": comment,
+        "title": "Homework",
     }
     response = requests.post(url, json=data, headers=headers)
     if response.status_code == 201:
@@ -42,15 +42,10 @@ def main():
 
     last_line = sys.argv[1]
     repo = sys.argv[2]
-    commit_sha = sys.argv[3]
-    token = sys.argv[4]
-    print('=========')
-    print(commit_sha)
-    url = f"https://api.github.com/repos/{repo}/commits/{commit_sha}/comments"
-    print(url)
-    print('=========')
-    create_github_commit_comment(repo, commit_sha, token)
+    token = sys.argv[3]
     passed, failed, skipped, total = extract_test_results(last_line)
+    comment = f'Tests passed {passed} Total Failed {failed} Score: {10 * int(passed)}'
+    create_github_comment(repo, token, comment)
     
     if passed is not None:
         print(f"Tests passed: {passed}")
