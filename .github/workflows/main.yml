@@ -1,0 +1,61 @@
+name: Foundry Testing
+run-name: Homework Running by ${{ github.actor }} 
+
+on:
+  push:
+    branches:
+      - "**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  FOUNDRY_PROFILE: ci
+  WORKFLOW_NAME: Foundry Test on ${{ github.ref_name }}
+
+jobs:
+  check:
+    strategy:
+      fail-fast: true
+
+    name: Foundry Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Run Forge tests
+        run: |
+          cd hw
+          forge install
+          forge test --mt test_Increment -vvv > test_output.txt
+        id: test
+
+      - name: Get the last line of the output
+        id: get_last_line
+        run: |
+          # Get the last line from the test output file
+          last_line=$(tail -n 1 test_output.txt)
+          echo "::set-output name=last_line::$last_line"
+
+      - name: Python Configuration
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+        id: language
+
+      - name: Use the last line in a Python script
+        run: |
+            # Get the last line from the previous step output
+            last_line="${{ steps.get_last_line.outputs.last_line }}"
+            echo "Last line: $last_line"
+            # Use the last line in your Python script
+            python temp.py "$last_line"
