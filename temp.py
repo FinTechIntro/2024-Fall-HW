@@ -36,7 +36,7 @@ def extract_test_results(line):
         return None, None, None, None
 
 def main():
-    if len(sys.argv) < 5:
+    if len(sys.argv) < 4:
         print("Usage: your_script.py <last_line_of_output>")
         sys.exit(1)
 
