@@ -44,8 +44,10 @@ def main():
     repo = sys.argv[1]
     commit_sha = sys.argv[2]
     token = sys.argv[3]
-    print(repo)
-    print(commit_sha)
+    print('=========')
+    url = f"https://api.github.com/repos/{repo}/commits/{commit_sha}/comments"
+    print(url)
+    print('=========')
     create_github_commit_comment(repo, commit_sha, "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")
     passed, failed, skipped, total = extract_test_results(last_line)
     
