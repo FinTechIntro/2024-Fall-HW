@@ -13,6 +13,7 @@ contract CounterTest is Test {
     }
 
     function test_Increment() public {
+        // TODO: Increment counter to 1
         counter.increment();
         assertEq(counter.number(), 1);
     }
