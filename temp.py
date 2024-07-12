@@ -40,16 +40,16 @@ def main():
         print("Usage: your_script.py <last_line_of_output>")
         sys.exit(1)
 
-    last_line = sys.argv[0]
-    repo = sys.argv[1]
-    commit_sha = sys.argv[2]
-    token = sys.argv[3]
+    last_line = sys.argv[1]
+    repo = sys.argv[2]
+    commit_sha = sys.argv[3]
+    token = sys.argv[4]
     print('=========')
     print(commit_sha)
-    url = f"https://api.github.com/repos/FinTechIntro/2024-Fall-HW/commits/{commit_sha}/comments"
+    url = f"https://api.github.com/repos/{repo}/commits/{commit_sha}/comments"
     print(url)
     print('=========')
-    create_github_commit_comment(repo, commit_sha, "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")
+    create_github_commit_comment(repo, commit_sha, token)
     passed, failed, skipped, total = extract_test_results(last_line)
     
     if passed is not None:
