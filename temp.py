@@ -40,10 +40,12 @@ def main():
         print("Usage: your_script.py <last_line_of_output>")
         sys.exit(1)
 
-    last_line = sys.argv[1]
+    last_line = sys.argv[0]
     repo = sys.argv[1]
     commit_sha = sys.argv[2]
     token = sys.argv[3]
+    print(repo)
+    print(commit_sha)
     create_github_commit_comment(repo, commit_sha, "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")
     passed, failed, skipped, total = extract_test_results(last_line)
     
